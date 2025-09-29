@@ -13,7 +13,10 @@ dependencies:
     sdk: flutter
   http: ^1.1.0
   cupertino_icons: ^1.0.2
+<<<<<<< HEAD
   path: ^1.9.0   
+=======
+>>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
 
 dev_dependencies:
   flutter_test:

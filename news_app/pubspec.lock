@@ -148,7 +148,11 @@ packages:
     source: hosted
     version: "1.16.0"
   path:
+<<<<<<< HEAD
     dependency: "direct main"
+=======
+    dependency: transitive
+>>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
     description:
       name: path
       sha256: "75cca69d1490965be98c73ceaea117e8a04dd21217b37b292c9ddbec0d955bc5"
