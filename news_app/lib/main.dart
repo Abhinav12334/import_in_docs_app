@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'services/api_service.dart';
-<<<<<<< HEAD
 import 'dart:async';
-=======
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
 
 void main() {
   runApp(const NewsApp());
@@ -15,7 +12,6 @@ class NewsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-<<<<<<< HEAD
       title: 'Enhanced News App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -40,12 +36,6 @@ class NewsApp extends StatelessWidget {
           seedColor: Colors.blue,
           brightness: Brightness.dark,
         ),
-=======
-      title: 'News App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
       ),
       home: const NewsListPage(),
     );
@@ -59,7 +49,6 @@ class NewsListPage extends StatefulWidget {
   State<NewsListPage> createState() => _NewsListPageState();
 }
 
-<<<<<<< HEAD
 class _NewsListPageState extends State<NewsListPage>
     with SingleTickerProviderStateMixin {
   List<dynamic> news = [];
@@ -74,18 +63,10 @@ class _NewsListPageState extends State<NewsListPage>
   final TextEditingController _searchController = TextEditingController();
   Timer? _searchDebounce;
   late TabController _tabController;
-=======
-class _NewsListPageState extends State<NewsListPage> {
-  List news = [];
-  bool isLoading = true;
-  String? errorMessage;
-  final ApiService _apiService = ApiService();
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
 
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
     _tabController = TabController(length: 1, vsync: this);
     loadNews();
     loadCategories();
@@ -97,9 +78,6 @@ class _NewsListPageState extends State<NewsListPage> {
     _searchDebounce?.cancel();
     _tabController.dispose();
     super.dispose();
-=======
-    loadNews();
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
   }
 
   Future<void> loadNews() async {
@@ -109,10 +87,6 @@ class _NewsListPageState extends State<NewsListPage> {
     });
 
     try {
-<<<<<<< HEAD
-=======
-      // Test connection first
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
       final connected = await _apiService.testConnection();
       if (!connected) {
         if (!mounted) return;
@@ -128,10 +102,7 @@ class _NewsListPageState extends State<NewsListPage> {
       if (!mounted) return;
       setState(() {
         news = data;
-<<<<<<< HEAD
         filteredNews = data;
-=======
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
         isLoading = false;
       });
     } catch (e) {
@@ -143,7 +114,6 @@ class _NewsListPageState extends State<NewsListPage> {
     }
   }
 
-<<<<<<< HEAD
   Future<void> loadCategories() async {
     try {
       final data = await _apiService.getCategories();
@@ -224,24 +194,13 @@ class _NewsListPageState extends State<NewsListPage> {
   Future<void> showNewsDetails(int newsId, String title) async {
     try {
       final newsDetails = await _apiService.getNewsDetails(newsId);
-=======
-  Future<void> showNewsDetails(int newsId, String title) async {
-    try {
-      final newsDetails = await _apiService.getNewsDetails(newsId);
-
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
       if (!mounted) return;
 
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => NewsDetailPage(
-<<<<<<< HEAD
             article: newsDetails,
-=======
-            title: title,
-            content: newsDetails['content'] ?? 'No content available',
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
           ),
         ),
       );
@@ -260,7 +219,6 @@ class _NewsListPageState extends State<NewsListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
         title: const Text('Enhanced News'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         elevation: 0,
@@ -578,107 +536,12 @@ class NewsDetailPage extends StatelessWidget {
   const NewsDetailPage({
     super.key,
     required this.article,
-=======
-        title: const Text('News App'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: loadNews,
-            tooltip: 'Refresh',
-          ),
-        ],
-      ),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : errorMessage != null
-              ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.error_outline,
-                          size: 64,
-                          color: Colors.red[300],
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          errorMessage!,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: loadNews,
-                          child: const Text('Retry'),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              : news.isEmpty
-                  ? const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.article_outlined, size: 64),
-                          SizedBox(height: 16),
-                          Text('No news articles available'),
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: news.length,
-                      itemBuilder: (context, index) {
-                        final article = news[index];
-                        return Card(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          child: ListTile(
-                            title: Text(
-                              article['title'] ?? 'No Title',
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(
-                              article['summary'] ?? (article['category'] ?? ''),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            trailing: const Icon(Icons.arrow_forward_ios),
-                            onTap: () => showNewsDetails(
-                              article['id'],
-                              article['title'] ?? 'No Title',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-      // Removed PDF import button as requested
-    );
-  }
-}
-
-class NewsDetailPage extends StatelessWidget {
-  final String title;
-  final String content;
-
-  const NewsDetailPage({
-    super.key,
-    required this.title,
-    required this.content,
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
         title: Text(
           article['title']?.toString() ?? 'Article',
           maxLines: 1,
@@ -695,17 +558,12 @@ class NewsDetailPage extends StatelessWidget {
             },
           ),
         ],
-=======
-        title: Text(title),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-<<<<<<< HEAD
             if (article['category'] != null &&
                 article['category'].toString().isNotEmpty)
               Container(
@@ -800,17 +658,6 @@ class NewsDetailPage extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               article['content']?.toString() ?? 'No content available',
-=======
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              content,
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     height: 1.6,
                   ),
@@ -820,7 +667,6 @@ class NewsDetailPage extends StatelessWidget {
       ),
     );
   }
-<<<<<<< HEAD
 
   Color _getCategoryColor(String category) {
     switch (category.toLowerCase()) {
@@ -851,6 +697,3 @@ class NewsDetailPage extends StatelessWidget {
     }
   }
 }
-=======
-}
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d

@@ -2,32 +2,21 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-<<<<<<< HEAD
 import 'package:path/path.dart' as path;
-=======
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
 
 class ApiService {
   // Base URL selection based on environment
   String get baseUrl {
     if (kDebugMode) {
       if (Platform.isAndroid) {
-<<<<<<< HEAD
         // For Android emulator, use 10.0.2.2 instead of localhost
-=======
-        // 👇 For Android emulator, use 10.0.2.2 instead of localhost
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
         return 'http://10.212.247.218:8000';
       } else if (Platform.isIOS) {
         // iOS simulator can use localhost
         return 'http://localhost:8000';
       } else {
         // For testing on physical device or web
-<<<<<<< HEAD
         return 'http://10.212.247.218:8000'; // your Wi-Fi IPv4
-=======
-        return 'http://10.212.247.218:8000'; // 👈 your Wi-Fi IPv4
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
       }
     } else {
       // Production server URL
@@ -35,7 +24,6 @@ class ApiService {
     }
   }
 
-<<<<<<< HEAD
   /// Fetch list of news headlines with optional filtering
   Future<List<dynamic>> fetchNews({
     String? category,
@@ -66,17 +54,6 @@ class ApiService {
             headers: {'Content-Type': 'application/json'},
           )
           .timeout(const Duration(seconds: 15));
-=======
-  /// Fetch list of news headlines
-  Future<List<dynamic>> fetchNews() async {
-    try {
-      final response = await http
-          .get(
-            Uri.parse('$baseUrl/news/'),
-            headers: {'Content-Type': 'application/json'},
-          )
-          .timeout(const Duration(seconds: 10));
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
 
       if (response.statusCode == 200) {
         return jsonDecode(response.body) as List<dynamic>;
@@ -89,7 +66,6 @@ class ApiService {
     }
   }
 
-<<<<<<< HEAD
   /// Get all available categories with counts
   Future<Map<String, dynamic>> getCategories() async {
     try {
@@ -186,15 +162,6 @@ class ApiService {
   Future<bool> testConnection() async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/')).timeout(const Duration(seconds: 5));
-=======
-  /// Check if backend server is alive
-  Future<bool> testConnection() async {
-    try {
-      final response = await http
-          .get(Uri.parse('$baseUrl/'))
-          .timeout(const Duration(seconds: 5));
-
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
       return response.statusCode == 200;
     } catch (e) {
       debugPrint('Connection error: $e');
@@ -222,7 +189,6 @@ class ApiService {
       throw Exception('Network error: $e');
     }
   }
-<<<<<<< HEAD
 
   /// Get database statistics
   Future<Map<String, dynamic>> getStats() async {
@@ -328,6 +294,4 @@ class ApiService {
       throw Exception('Upload error: $e');
     }
   }
-=======
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
 }

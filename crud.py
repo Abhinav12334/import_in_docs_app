@@ -1,11 +1,7 @@
 from sqlalchemy.orm import Session
-<<<<<<< HEAD
 from sqlalchemy import func, desc
 import models, schemas
 from typing import List, Dict, Optional
-=======
-import models, schemas
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
 
 def create_article(db: Session, article_in: schemas.ArticleCreate):
     db_article = models.Article(
@@ -33,7 +29,6 @@ def get_articles(db: Session, limit: int = 50, offset: int = 0):
 def get_article(db: Session, article_id: int):
     return db.query(models.Article).filter(models.Article.id == article_id).first()
 
-<<<<<<< HEAD
 def get_categories(db: Session) -> List[str]:
     """Get list of all unique categories."""
     rows = db.query(models.Article.category).distinct().all()
@@ -58,26 +53,15 @@ def get_categories_with_counts(db: Session) -> List[Dict]:
     ]
 
 def get_articles_by_category(db: Session, category: str, limit: int = 50, offset: int = 0):
-=======
-def get_categories(db: Session):
-    rows = db.query(models.Article.category).distinct().all()
-    return [r[0] for r in rows if r[0]]
-
-def get_articles_by_category(db: Session, category: str, limit: int = 50):
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
     return (
         db.query(models.Article)
         .filter(models.Article.category == category)
         .order_by(models.Article.created_at.desc())
-<<<<<<< HEAD
         .offset(offset)
-=======
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
         .limit(limit)
         .all()
     )
 
-<<<<<<< HEAD
 def search_articles(db: Session, q: str, limit: int = 50, offset: int = 0):
     q_like = f"%{q}%"
     return (
@@ -118,18 +102,10 @@ def get_recent_articles(db: Session, days: int = 7, limit: int = 10):
     return (
         db.query(models.Article)
         .filter(models.Article.created_at >= cutoff_date)
-=======
-def search_articles(db: Session, q: str, limit: int = 50):
-    q_like = f"%{q}%"
-    return (
-        db.query(models.Article)
-        .filter((models.Article.title.ilike(q_like)) | (models.Article.content.ilike(q_like)))
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
         .order_by(models.Article.created_at.desc())
         .limit(limit)
         .all()
     )
-<<<<<<< HEAD
 
 def get_popular_articles(db: Session, limit: int = 10):
     """Get articles with longest content (proxy for importance)."""
@@ -177,5 +153,3 @@ def get_articles_by_source(db: Session, source_file: str, limit: int = 50):
         .limit(limit)
         .all()
     )
-=======
->>>>>>> 3600edf4a35782f3b4b0fe2c1a6bf946c2bd539d
